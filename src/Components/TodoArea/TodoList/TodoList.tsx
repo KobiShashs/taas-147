@@ -2,7 +2,7 @@ import axios from "axios";
 import { Notyf } from "notyf";
 import { useEffect, useState } from "react";
 import { TodoModel } from "../../../Models/Todo";
-import globals from "../../../Services/gloabals";
+import globals from "../../../Services/Gloabals";
 import notify from "../../../Services/Notification";
 import EmptyView from "../../SharedArea/EmptyView/EmptyView";
 import TodoItem from "../TodoItem/TodoItem";
@@ -15,13 +15,14 @@ function TodoList(): JSX.Element {
     useEffect(() => {
         axios.get<TodoModel[]>(globals.urls.tasks)
             .then((res) => {
-                notify.success('Woho got my taks!');
+                notify.success('Woho got my tasks!');
                 setTasks(res.data);
             })
             .catch((err) => {
                 notify.error(err.message);
             });
     }, []);
+
     return (
         <div className="TodoList">
             <h2>Todo List</h2>

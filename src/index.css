@@ -26,6 +26,13 @@ code {
   align-items: center;
 }
 
+.flex-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
 
 .flex-center-col {
   display: flex;
@@ -49,11 +56,10 @@ code {
   height: 75px;
 }
 
-.flex-row-none-wrap-list{
+.flex-row-none-wrap-list {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-
