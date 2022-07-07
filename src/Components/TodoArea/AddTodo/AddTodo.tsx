@@ -2,13 +2,15 @@ import "./AddTodo.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TodoModel, TodoPayloadModel } from "../../../Models/Todo";
-import axios from "axios";
-import globals from "../../../Services/Gloabals";
+import {  TodoPayloadModel } from "../../../Models/Todo";
 import notify from "../../../Services/Notification";
-import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import web from "../../../Services/WebApi";
 
 function AddTodo(): JSX.Element {
+
+
+    const navigate = useNavigate();
 
     // Step 6 - Manage Your schema
     const schema = yup.object().shape({
@@ -41,9 +43,15 @@ function AddTodo(): JSX.Element {
         console.log(todo);
         console.log(JSON.stringify(todo));
 
-        await axios.post<any>(globals.urls.tasks, todo)
-            .then(res => { notify.success('Haha new task created!!!!!!') })
-            .catch(err => { notify.error('Oppsy : ' + err.message) });
+       web.addTask(todo)
+            .then(res => { 
+                notify.success('Haha new task created!!!!!!');
+                navigate('/tasks');
+            })
+            .catch(err => { 
+                notify.error('Oppsy : ' + err.message);
+                navigate('/tasks');
+            });
     }
 
     return (
@@ -63,7 +71,7 @@ function AddTodo(): JSX.Element {
                 <label htmlFor="dueDate">Due date</label>
                 <input  {...register("dueDate")} type="datetime-local" placeholder="dueDate" id="dueDate" />
                 <span>{errors.dueDate?.message}</span>
-                <button disabled={!isValid}>Add</button>
+                <button className="button-success" disabled={!isValid}>Add</button>
             </form>
         </div>
     );

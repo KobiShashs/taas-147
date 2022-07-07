@@ -7,9 +7,11 @@ interface DonateProps {
 }
 function Donate(props: DonateProps): JSX.Element {
     return (
-        <div className="Donate">
-            <p>This is an open source todo application please open your heart and give some...</p>
-            <p>Donate now to : {props.to} | Account Details : {props.bank}-{props.branch}-{props.account}</p>
+        <div className="Donate flex-col-top-center">
+            <h1>Donate</h1>
+            <span>This is an open source todo application</span>
+            <span> please open your ❤️ and give some 💰</span>
+            <span>Donate now to : {props.to} | Account Details : {props.bank}-{props.branch}-{props.account}</span>
         </div>
     );
 }

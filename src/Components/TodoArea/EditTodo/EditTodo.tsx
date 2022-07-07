@@ -2,15 +2,28 @@ import "./EditTodo.css";
 import { useForm, useFormState } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TodoPayloadModel } from "../../../Models/Todo";
-import { useState } from "react";
+import { TodoModel, TodoPayloadModel } from "../../../Models/Todo";
+import { useEffect, useState } from "react";
 import globals from "../../../Services/Gloabals";
 import axios from "axios";
 import notify from "../../../Services/Notification";
+import { useNavigate, useParams } from "react-router-dom";
+import web from "../../../Services/WebApi";
+
+interface EditTodoProps { }
 function EditTodo(): JSX.Element {
 
-    const [id, setId] = useState<number>(17)
-    const [origin, setOrigin] = useState<TodoPayloadModel>({ 'caption': 'aaa', 'info': 'bbb', 'classification': 'cccc', 'dueDate': new Date() })
+    const navigate = useNavigate();
+    const params = useParams();
+    const taskId = +(params.id || 0);
+
+
+    const [id, setId] = useState<number>(taskId)
+    const [origin, setOrigin] = useState<TodoPayloadModel>({ 'caption': '', 'info': '', 'classification': '', 'dueDate': new Date() })
+
+
+   
+
 
     // Step 6 - Manage Your schema
     const schema = yup.object().shape({
@@ -42,13 +55,16 @@ function EditTodo(): JSX.Element {
     const { dirtyFields } = useFormState({ control });
 
 
-     //  Step 8 - Send to Remote as put request
-     const yalla = async (todo: TodoPayloadModel) => {
+    //  Step 8 - Send to Remote as put request
+    const yalla = async (todo: TodoPayloadModel) => {
 
-       
 
-        await axios.put<any>(globals.urls.tasks+"/"+id, todo)
-            .then(res => { notify.success('Haha new task updated!!!!!!') })
+
+       web.updateTask(id,todo)
+            .then(res => { 
+                notify.success('Haha new task updated!!!!!!'); 
+                navigate('/tasks');
+            })
             .catch(err => { notify.error('Oppsy : ' + err.message) });
     }
 
@@ -70,7 +86,7 @@ function EditTodo(): JSX.Element {
                 <label htmlFor="dueDate">Due date</label>
                 <input  {...register("dueDate")} type="datetime-local" placeholder="dueDate" id="dueDate" />
                 <span>{errors.dueDate?.message}</span>
-                <button disabled={!isDirty}>Update</button>
+                <button  className="button-success" disabled={!isDirty}>Update</button>
             </form>
         </div>
     );

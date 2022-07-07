@@ -3,7 +3,7 @@ class Globals {
 
 class DevelopmentGlobals extends Globals {
     public urls = {
-        tasks: "http://localhost:8080/api/tasks"
+        tasks: "http://localhost:8080/api/tasks/"
     }
 }
 

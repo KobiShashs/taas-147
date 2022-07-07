@@ -2,11 +2,3 @@
 	text-align: center;
 }
 
-.About p{
-    padding: 20px;
-}
-
-.About p:first-letter{
-    color:#6db33f;
-    font-size: x-large;
-}
