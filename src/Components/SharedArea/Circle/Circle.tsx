@@ -4,18 +4,16 @@ import globals from "../../../Services/Gloabals";
 import notify from "../../../Services/Notification";
 import "./Circle.css";
 interface CircleProps{
-    num:number;
+   num:number;
 }
 function Circle(props:CircleProps): JSX.Element {
 
 
-    const [num, setNum] = useState(props.num);
+     const [num, setNum] = useState(props.num);
 
   
     return (
-        <div className="Circle">
-            {num}
-        </div>
+        <div className="Circle">{props.num}</div>
     );
 }
 

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import store from "../../../Redux/Store";
+import { taskDeletedAction } from "../../../Redux/TasksAppState";
 import notify from "../../../Services/Notification";
 import web from "../../../Services/WebApi";
 import "./DeleteTodo.css";
@@ -22,6 +24,8 @@ function DeleteTodo(): JSX.Element {
             .then(res => {
                 notify.success('woho deleted successfully');
                 navigate('/tasks');
+                // Update App State (Global State)
+                store.dispatch(taskDeletedAction(id));
             })
             .catch(err => {
                 notify.error(err.message);

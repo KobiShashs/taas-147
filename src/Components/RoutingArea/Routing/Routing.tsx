@@ -10,6 +10,9 @@ import DeleteTodo from "../../TodoArea/DeleteTodo/DeleteTodo";
 import EditTodo from "../../TodoArea/EditTodo/EditTodo";
 import TodoList from "../../TodoArea/TodoList/TodoList";
 import "./Routing.css";
+import Login from "../../AuthArea/Login/Login";
+import Register from "../../AuthArea/Register/Register";
+import Logout from "../../AuthArea/Logout/Logout";
 
 function Routing(): JSX.Element {
     return (
@@ -24,7 +27,11 @@ function Routing(): JSX.Element {
                 <Route path="/tasks/add" element={<AddTodo />} />
                 <Route path="/tasks/update/:id" element={<EditTodo />} />
                 <Route path="/tasks/delete/:id/" element={<DeleteTodo />} />
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+                <Route path="logout" element={<Logout />} />
                 <Route path="*" element={<Page404 />} />
+
             </Routes>
         </div>
     );

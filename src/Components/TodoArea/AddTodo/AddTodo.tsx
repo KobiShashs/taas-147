@@ -6,6 +6,8 @@ import {  TodoPayloadModel } from "../../../Models/Todo";
 import notify from "../../../Services/Notification";
 import { useNavigate } from "react-router-dom";
 import web from "../../../Services/WebApi";
+import store from "../../../Redux/Store";
+import { taskAddedAction } from "../../../Redux/TasksAppState";
 
 function AddTodo(): JSX.Element {
 
@@ -47,6 +49,8 @@ function AddTodo(): JSX.Element {
             .then(res => { 
                 notify.success('Haha new task created!!!!!!');
                 navigate('/tasks');
+                // Update App State (Global State)
+                store.dispatch(taskAddedAction(res.data));
             })
             .catch(err => { 
                 notify.error('Oppsy : ' + err.message);

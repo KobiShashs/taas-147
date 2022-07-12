@@ -9,6 +9,8 @@ import axios from "axios";
 import notify from "../../../Services/Notification";
 import { useNavigate, useParams } from "react-router-dom";
 import web from "../../../Services/WebApi";
+import store from "../../../Redux/Store";
+import { taskUpdatedAction } from "../../../Redux/TasksAppState";
 
 interface EditTodoProps { }
 function EditTodo(): JSX.Element {
@@ -18,11 +20,14 @@ function EditTodo(): JSX.Element {
     const taskId = +(params.id || 0);
 
 
-    const [id, setId] = useState<number>(taskId)
-    const [origin, setOrigin] = useState<TodoPayloadModel>({ 'caption': '', 'info': '', 'classification': '', 'dueDate': new Date() })
+    const [id, setId] = useState<number>(taskId);
+    // Read from App State (Global State)
+    const [task, setTaks] = useState<TodoModel>(store.getState().tasksReducer.tasks.filter(t => t.id === id)[0]);
+    // const [origin, setOrigin] = useState<TodoPayloadModel>({ 'caption': '', 'info': '', 'classification': '', 'dueDate': new Date() })
+    const [origin, setOrigin] = useState<TodoPayloadModel>({ 'caption': task.caption, 'info': task.info, 'classification': task.classification, 'dueDate': task.dueDate })
 
 
-   
+
 
 
     // Step 6 - Manage Your schema
@@ -60,10 +65,12 @@ function EditTodo(): JSX.Element {
 
 
 
-       web.updateTask(id,todo)
-            .then(res => { 
-                notify.success('Haha new task updated!!!!!!'); 
+        web.updateTask(id, todo)
+            .then(res => {
+                notify.success('Haha new task updated!!!!!!');
                 navigate('/tasks');
+                // Update App State (Global State)
+                store.dispatch(taskUpdatedAction(res.data));
             })
             .catch(err => { notify.error('Oppsy : ' + err.message) });
     }
@@ -86,7 +93,7 @@ function EditTodo(): JSX.Element {
                 <label htmlFor="dueDate">Due date</label>
                 <input  {...register("dueDate")} type="datetime-local" placeholder="dueDate" id="dueDate" />
                 <span>{errors.dueDate?.message}</span>
-                <button  className="button-success" disabled={!isDirty}>Update</button>
+                <button className="button-success" disabled={!isDirty}>Update</button>
             </form>
         </div>
     );
