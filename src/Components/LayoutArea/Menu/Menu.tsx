@@ -1,14 +1,18 @@
-import { Link } from "react-router-dom";
-import CustomLink from "../../RoutingArea/CustomLink/CustomLink";
+import { useLocation } from "react-router-dom";
+import MenuLink from "../../RoutingArea/MenuLink/MenuLink";
 import "./Menu.css";
 
 function Menu(): JSX.Element {
+
+    const location = useLocation();
+    const isRoot = location.pathname === '/'
+
     return (
         <div className="Menu flex-col-top-center">
-            <CustomLink to="home">Home</CustomLink>
-            <CustomLink to="tasks">Tasks</CustomLink>
-            <CustomLink to="about">About</CustomLink>
-            <CustomLink to="donate">Donate</CustomLink>
+            <MenuLink to="home"><div className={(isRoot) ? 'active' : ''}>Home</div></MenuLink>
+            <MenuLink to="tasks">Tasks</MenuLink>
+            <MenuLink to="about">About</MenuLink>
+            <MenuLink to="donate">Donate</MenuLink>
             {/* <Link to="home">Home</Link>
             <Link to="tasks">Tasks</Link>
             <Link to="about">About</Link>

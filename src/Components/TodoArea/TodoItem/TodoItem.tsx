@@ -1,9 +1,10 @@
 import moment from "moment";
 import { TodoModel } from "../../../Models/Todo";
-import { MdDelete, MdModeEdit } from "react-icons/md";
+
 import "./TodoItem.css";
 import { Link } from "react-router-dom";
-
+import CustomLink from "../../RoutingArea/CustomLink/CustomLink";
+import { MdDelete, MdModeEdit } from "react-icons/md";
 interface TodoItemProps {
     task: TodoModel;
 }
@@ -18,12 +19,8 @@ function TodoItem(props: TodoItemProps): JSX.Element {
                 <span className="single-line-only">{props.task.info}</span>
                 <span className="date">{moment(props.task.dueDate).format("DD/MM/yyyy")}</span>
                 <div className="flex-around">
-                    <Link className="link" to={`delete/${props.task.id}`}>
-                        <MdDelete size={42} />
-                    </Link>
-                    <Link className="link" to={`update/${props.task.id}`}>
-                        <MdModeEdit size={42} />
-                    </Link>
+                    <CustomLink to={`delete/${props.task.id}`}><MdDelete size={42} /></CustomLink>
+                    <CustomLink to={`update/${props.task.id}`}><MdModeEdit size={42} /></CustomLink>
                 </div>
 
             </div>

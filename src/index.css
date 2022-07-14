@@ -76,7 +76,7 @@ code {
 }
 
 
-p {
+/* p {
   padding: 5px;
   font-size: x-large;
 }
@@ -84,26 +84,11 @@ p {
 p:first-letter {
   color: #6db33f;
   font-size: 50px;
-}
+} */
 
 
 
-.link {
-  color: white;
-  margin-bottom: 15px;
-  font-size: 30px;
-  text-decoration: none;
-}
 
-.link:hover {
-  color: #6db33f;
-  /* border-bottom: 3px solid pink; */
-  font-weight: 700;
-  font-size: 30px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: 0.1s;
-}
 
 
 .button {
@@ -168,7 +153,6 @@ p:first-letter {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
 }
 
 .one-line {

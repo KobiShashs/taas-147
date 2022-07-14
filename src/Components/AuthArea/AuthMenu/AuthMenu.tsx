@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import store from "../../../Redux/Store";
+import CustomLink from "../../RoutingArea/CustomLink/CustomLink";
 import "./AuthMenu.css";
 
 function AuthMenu(): JSX.Element {
@@ -20,13 +21,13 @@ function AuthMenu(): JSX.Element {
         });
     }, [])
     return (
-        <div className="AuthMenu">
+        <div className="AuthMenu flex-row">
             {
                 isLoggedIn
                     ?
-                    <>Hello {email} <Link className="link" to="logout">Logout</Link></>
+                    <>Hello {email} <CustomLink to="logout">Logout</CustomLink></>
                     :
-                    <>Hello Guest  <Link className="link" to="register">Register</Link> <Link className="link" to="login">Login</Link></>
+                    <>Hello Guest  <CustomLink to="login">Login</CustomLink> <CustomLink to="register">Register</CustomLink></>
             }
 
 

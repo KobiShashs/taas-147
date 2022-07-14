@@ -6,7 +6,7 @@ import { TodoModel, TodoPayloadModel } from "../../../Models/Todo";
 import { useEffect, useState } from "react";
 import globals from "../../../Services/Gloabals";
 import axios from "axios";
-import notify from "../../../Services/Notification";
+import notify, { SccMsg } from "../../../Services/Notification";
 import { useNavigate, useParams } from "react-router-dom";
 import web from "../../../Services/WebApi";
 import store from "../../../Redux/Store";
@@ -67,7 +67,7 @@ function EditTodo(): JSX.Element {
 
         web.updateTask(id, todo)
             .then(res => {
-                notify.success('Haha new task updated!!!!!!');
+                notify.success(SccMsg.UPDATE_TASK);
                 navigate('/tasks');
                 // Update App State (Global State)
                 store.dispatch(taskUpdatedAction(res.data));

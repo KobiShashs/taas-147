@@ -6,10 +6,12 @@
 }
 
 
-.CustomLink .active {
-    color: royalblue;
-    border-bottom: 3px solid royalblue;
+.CustomLink:hover{
+    color: #6db33f;
+    /* border-bottom: 3px solid pink; */
     font-weight: 700;
-    font-size: xx-large;
-    text-decoration: dashed;
+    font-size: 30px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.1s;
 }

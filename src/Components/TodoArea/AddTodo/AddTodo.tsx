@@ -3,12 +3,12 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {  TodoPayloadModel } from "../../../Models/Todo";
-import notify from "../../../Services/Notification";
+import notify, { SccMsg } from "../../../Services/Notification";
 import { useNavigate } from "react-router-dom";
 import web from "../../../Services/WebApi";
 import store from "../../../Redux/Store";
 import { taskAddedAction } from "../../../Redux/TasksAppState";
-
+import Button from 'react-bootstrap/Button';
 function AddTodo(): JSX.Element {
 
 
@@ -47,7 +47,7 @@ function AddTodo(): JSX.Element {
 
        web.addTask(todo)
             .then(res => { 
-                notify.success('Haha new task created!!!!!!');
+                notify.success(SccMsg.ADD_TASK);
                 navigate('/tasks');
                 // Update App State (Global State)
                 store.dispatch(taskAddedAction(res.data));
@@ -75,7 +75,8 @@ function AddTodo(): JSX.Element {
                 <label htmlFor="dueDate">Due date</label>
                 <input  {...register("dueDate")} type="datetime-local" placeholder="dueDate" id="dueDate" />
                 <span>{errors.dueDate?.message}</span>
-                <button className="button-success" disabled={!isValid}>Add</button>
+                {/* <button className="button-success" disabled={!isValid}>Add</button> */}
+                <Button disabled={!isValid} variant="success">Add</Button>{' '}
             </form>
         </div>
     );
